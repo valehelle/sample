@@ -26,6 +26,12 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow Rytz to use Face ID."
+        }
+      ],
       "expo-router",
       [
         "expo-splash-screen",
