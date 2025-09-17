@@ -6,16 +6,16 @@ import { useThemeColor } from "@/hooks/use-theme-color";
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: "default" | "title" | "defaultSemiBold" | "subtitle" | "link";
+  type?: "default" | "title" | "defaultSemiBold" | "subtitle" | "system";
   fontFamily?: string; // allow override
 };
 
-const fontFamilyMap: Record<string, string> = {
+const fontFamilyMap: Record<string, string | undefined> = {
   default: "ParafinaTrial-RegularM",
+  system: undefined,
   defaultSemiBold: "ParafinaTrial-MediumM",
   title: "ParafinaTrial-BoldL",
   subtitle: "ParafinaTrial-BoldM",
-  link: "ParafinaTrial-RegularS",
 };
 
 export function ThemedText({
@@ -28,17 +28,19 @@ export function ThemedText({
 }: ThemedTextProps) {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
   const resolvedFontFamily =
-    fontFamily || fontFamilyMap[type] || fontFamilyMap.default;
+    type === "system"
+      ? undefined
+      : fontFamily || fontFamilyMap[type] || fontFamilyMap.default;
 
   return (
     <Text
       style={[
         { color, fontFamily: resolvedFontFamily },
         type === "default" ? styles.default : undefined,
+        type === "system" ? styles.default : undefined,
         type === "title" ? styles.title : undefined,
         type === "defaultSemiBold" ? styles.defaultSemiBold : undefined,
         type === "subtitle" ? styles.subtitle : undefined,
-        type === "link" ? styles.link : undefined,
         style,
       ]}
       {...rest}

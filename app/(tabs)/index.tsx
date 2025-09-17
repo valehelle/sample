@@ -1,4 +1,4 @@
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, TouchableOpacity, View } from "react-native";
 
 import Button from "@/components/Button";
 import { Screen } from "@/components/screen";
@@ -65,9 +65,12 @@ const Transaction = ({
         </ThemedText>
       </View>
       <View style={{ flex: 1 }}>
-        <Text style={{ textAlign: "right", fontSize: FontSize.md }}>
+        <ThemedText
+          type="system"
+          style={{ textAlign: "right", fontSize: FontSize.md }}
+        >
           RM {amount.toFixed(2)}
-        </Text>
+        </ThemedText>
       </View>
     </View>
   );
