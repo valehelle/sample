@@ -1,5 +1,5 @@
-import Button from "@/components/Button";
 import { Screen } from "@/components/screen";
+import Button from "@/components/theme-button";
 import { ThemedText } from "@/components/themed-text";
 import { FontSize, Spacing } from "@/constants/theme";
 import { useRouter } from "expo-router";

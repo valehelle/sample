@@ -1,10 +1,10 @@
-import Button from "@/components/Button";
 import { CurrencyInput } from "@/components/currency-input";
+import { IconSymbol } from "@/components/icon/icon-symbol";
 import { Screen } from "@/components/screen";
 import { TextArea } from "@/components/text-area";
 import { TextInput } from "@/components/text-input";
+import Button from "@/components/theme-button";
 import { ThemedText } from "@/components/themed-text";
-import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Spacing } from "@/constants/theme";
 import { useRouter } from "expo-router";
 import { useCallback, useState } from "react";
