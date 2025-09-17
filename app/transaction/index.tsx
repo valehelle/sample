@@ -6,6 +6,7 @@ import { TextInput } from "@/components/text-input";
 import Button from "@/components/theme-button";
 import { ThemedText } from "@/components/themed-text";
 import { Spacing } from "@/constants/theme";
+import { useGetAccountQuery } from "@/services/ryt";
 import { useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 import {
@@ -17,6 +18,8 @@ import {
 } from "react-native";
 
 export default function TransactionScreen() {
+  const { data } = useGetAccountQuery();
+
   const [amount, setAmount] = useState(0.0);
   const [accountNumber, setAccountNumber] = useState("");
 
@@ -50,7 +53,8 @@ export default function TransactionScreen() {
           onChangeValue={(val) => setAmount(val ?? 0)}
         />
         <Text>
-          Amount available: <Text style={styles.boldText}>RM 12.32</Text>
+          Amount available:{" "}
+          <Text style={styles.boldText}>RM {data?.currentAccount.balance}</Text>
         </Text>
       </View>
       <View style={styles.section}>

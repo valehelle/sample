@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-export const pokemonApi = createApi({
+import { AccountData } from "./types";
+export const rytApi = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://mpf7abfd2054e7e3b6a3.free.beeceptor.com",
+    baseUrl: "https://ryt.com",
   }),
   tagTypes: [],
   endpoints: (build) => ({
-    getPokemonByName: build.query({
-      query: (name: string) => `data`,
+    getAccount: build.query<AccountData, void>({
+      query: () => `account`,
     }),
-    updatePokemon: build.mutation({
+    updateAccount: build.mutation({
       query: ({ name, ...patch }) => ({
         url: `post/${name}`,
         method: "PATCH",
@@ -20,5 +20,4 @@ export const pokemonApi = createApi({
 });
 
 // Export hooks for usage in functional components
-export const { useGetPokemonByNameQuery, useUpdatePokemonMutation } =
-  pokemonApi;
+export const { useGetAccountQuery, useUpdateAccountMutation } = rytApi;
