@@ -12,6 +12,7 @@ import {
   useGetAccountQuery,
 } from "@/services/ryt";
 import { setLastResult } from "@/store/transactionSlice";
+import * as LocalAuthentication from "expo-local-authentication";
 import { useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 import {
@@ -35,14 +36,21 @@ export default function TransactionScreen() {
   const router = useRouter();
 
   const onSendPressed = useCallback(() => {
-    createTransaction({
-      amount: amount,
-      accountNumber: accountNumber,
-      optionalNotes: optionalNotes,
-    }).then((resp) => {
-      if (resp.data?.success) {
-        dispatch(setLastResult(resp.data.transaction));
-        router.replace("/transaction/success");
+    LocalAuthentication.authenticateAsync({
+      biometricsSecurityLevel: "strong",
+    }).then((result) => {
+      console.log(result);
+      if (result.success) {
+        createTransaction({
+          amount: amount,
+          accountNumber: accountNumber,
+          optionalNotes: optionalNotes,
+        }).then((resp) => {
+          if (resp.data?.success) {
+            dispatch(setLastResult(resp.data.transaction));
+            router.replace("/transaction/success");
+          }
+        });
       }
     });
   }, [

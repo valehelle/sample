@@ -42,7 +42,7 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled || isLoading}
     >
       {isLoading ? (
-        <ActivityIndicator />
+        <ActivityIndicator color={buttonTextColor} />
       ) : (
         <Text style={[styles.label, textStyle, { color: buttonTextColor }]}>
           {label}
