@@ -5,7 +5,7 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Spacing } from "@/constants/theme";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { useRouter } from "expo-router";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   Animated,
   StyleSheet,
@@ -66,6 +66,10 @@ export default function TransactionScreen() {
   );
 
   const router = useRouter();
+
+  const onSendPressed = useCallback(() => {
+    router.replace("/transaction/success");
+  }, []);
 
   const buttonDisabled = value === 0.0 || value1 === "";
   return (
@@ -173,7 +177,7 @@ export default function TransactionScreen() {
         <Button
           style={{ width: "100%", paddingVertical: 12 }}
           label="Send"
-          onPress={() => {}}
+          onPress={onSendPressed}
           disabled={buttonDisabled}
         />
       </View>
