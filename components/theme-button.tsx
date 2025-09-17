@@ -1,6 +1,7 @@
 import { useThemeColor } from "@/hooks/use-theme-color";
 import React from "react";
 import {
+  ActivityIndicator,
   GestureResponderEvent,
   StyleSheet,
   Text,
@@ -13,6 +14,7 @@ type ButtonProps = {
   style?: object;
   textStyle?: object;
   disabled?: boolean;
+  isLoading?: boolean;
 };
 
 export const Button: React.FC<ButtonProps> = ({
@@ -21,6 +23,7 @@ export const Button: React.FC<ButtonProps> = ({
   style,
   textStyle,
   disabled = false,
+  isLoading = false,
 }) => {
   const buttonBackgroundColor = useThemeColor(
     {},
@@ -36,10 +39,15 @@ export const Button: React.FC<ButtonProps> = ({
       style={[styles.button, style, { backgroundColor: buttonBackgroundColor }]}
       onPress={onPress}
       activeOpacity={0.7}
+      disabled={disabled || isLoading}
     >
-      <Text style={[styles.label, textStyle, { color: buttonTextColor }]}>
-        {label}
-      </Text>
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <Text style={[styles.label, textStyle, { color: buttonTextColor }]}>
+          {label}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 };

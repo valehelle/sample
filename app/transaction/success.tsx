@@ -2,6 +2,9 @@ import { Screen } from "@/components/screen";
 import Button from "@/components/theme-button";
 import { ThemedText } from "@/components/themed-text";
 import { FontSize, Spacing } from "@/constants/theme";
+import { useAppSelector } from "@/hooks/use-store";
+import { useThemeColor } from "@/hooks/use-theme-color";
+import { selectLastTransaction } from "@/store/transactionSlice";
 import { useRouter } from "expo-router";
 import LottieView from "lottie-react-native";
 import { useCallback } from "react";
@@ -10,12 +13,15 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TransactionScreen() {
   const router = useRouter();
-
+  const lastTransaction = useAppSelector(selectLastTransaction);
   const donePressed = useCallback(() => {
     router.back();
   }, [router]);
 
   const insets = useSafeAreaInsets();
+
+  const textLabel = useThemeColor({}, "textLabel");
+
   return (
     <>
       <Screen>
@@ -40,6 +46,30 @@ export default function TransactionScreen() {
           <ThemedText style={{ textAlign: "center", marginTop: Spacing.md }}>
             Your transaction was completed successfully.
           </ThemedText>
+        </View>
+        <View style={{ paddingHorizontal: Spacing.lg, marginTop: Spacing.lg }}>
+          <ThemedText type="defaultSemiBold" style={{ color: textLabel }}>
+            Recepient Account Number
+          </ThemedText>
+          <ThemedText type="title">{lastTransaction?.accountNumber}</ThemedText>
+
+          <ThemedText
+            type="defaultSemiBold"
+            style={{ color: textLabel, marginTop: Spacing.md }}
+          >
+            Amount
+          </ThemedText>
+          <ThemedText type="title">RM {lastTransaction?.amount}</ThemedText>
+          {lastTransaction?.optionalNotes ? (
+            <View style={{ marginTop: Spacing.md }}>
+              <ThemedText type="defaultSemiBold" style={{ color: textLabel }}>
+                Notes
+              </ThemedText>
+              <ThemedText type="title">
+                {lastTransaction?.optionalNotes}
+              </ThemedText>
+            </View>
+          ) : null}
         </View>
       </Screen>
       <View

@@ -6,7 +6,7 @@ export const handlers = [
     return HttpResponse.json({
       currentAccount: {
         name: "Current Account-i",
-        balance: 1200.52,
+        balance: 1200.24,
         accountNumber: "1624 4434 4343 4222",
       },
       transactions: [
@@ -41,6 +41,28 @@ export const handlers = [
           outstandingBalance: 1.23,
         },
       ],
+    });
+  }),
+  http.post("https://ryt.com/transaction", async (resp) => {
+    await delay(1500);
+    const body = JSON.parse(resp.request._bodyInit as string);
+
+    if (body.amount > 1200.24) {
+      return new HttpResponse(
+        JSON.stringify({ message: "Insufficient Funds" }),
+        {
+          status: 404,
+        }
+      );
+    }
+
+    return HttpResponse.json({
+      success: true,
+      transaction: {
+        accountNumber: body.accountNumber,
+        amount: body.amount,
+        optionalNotes: body.optionalNotes,
+      },
     });
   }),
 ];

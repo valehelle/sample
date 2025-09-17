@@ -1,5 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { AccountData } from "./types";
+import {
+  AccountData,
+  CreateTransactionBody,
+  CreateTransactionResponse,
+} from "./types";
 export const rytApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://ryt.com",
@@ -9,15 +13,18 @@ export const rytApi = createApi({
     getAccount: build.query<AccountData, void>({
       query: () => `account`,
     }),
-    updateAccount: build.mutation({
-      query: ({ name, ...patch }) => ({
-        url: `post/${name}`,
-        method: "PATCH",
-        body: patch,
+    createTransaction: build.mutation<
+      CreateTransactionResponse,
+      CreateTransactionBody
+    >({
+      query: (body) => ({
+        url: `transaction`,
+        method: "POST",
+        body: body,
       }),
     }),
   }),
 });
 
 // Export hooks for usage in functional components
-export const { useGetAccountQuery, useUpdateAccountMutation } = rytApi;
+export const { useGetAccountQuery, useCreateTransactionMutation } = rytApi;

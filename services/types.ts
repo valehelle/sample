@@ -1,4 +1,4 @@
-export type AccountData = {
+export interface AccountData {
   currentAccount: {
     name: string;
     balance: number;
@@ -16,4 +16,19 @@ export type AccountData = {
     last4: string;
     outstandingBalance: number;
   }[];
-};
+}
+
+export interface CreateTransactionResponse {
+  success: boolean;
+  transaction: {
+    amount: number;
+    accountNumber: string;
+    optionalNotes: string;
+  };
+}
+
+export interface CreateTransactionBody {
+  amount: number;
+  accountNumber: string;
+  optionalNotes: string;
+}

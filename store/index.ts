@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { rytApi } from "../services/ryt";
-import counterReducer from "./counterSlice";
+import transactionReducer from "./transactionSlice";
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    transaction: transactionReducer,
     [rytApi.reducerPath]: rytApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
