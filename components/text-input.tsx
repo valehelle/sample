@@ -22,6 +22,8 @@ export const TextInput = ({
     isFocused || value !== "" ? "text" : "textUnfocused"
   );
 
+  const placeHolderTextColor = useThemeColor({}, "textUnfocused");
+
   const handleFocus = () => {
     setIsFocused(true);
     Animated.spring(scale, {
@@ -61,7 +63,7 @@ export const TextInput = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
         style={[styles.accountInput, { color: textColor }]}
-        placeholderTextColor={textColor}
+        placeholderTextColor={placeHolderTextColor}
       />
     </Animated.View>
   );
