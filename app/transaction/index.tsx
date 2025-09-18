@@ -16,6 +16,7 @@ import * as LocalAuthentication from "expo-local-authentication";
 import { useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 import {
+  Alert,
   Modal,
   StyleSheet,
   Text,
@@ -39,7 +40,6 @@ export default function TransactionScreen() {
     LocalAuthentication.authenticateAsync({
       biometricsSecurityLevel: "strong",
     }).then((result) => {
-      console.log(result);
       if (result.success) {
         createTransaction({
           amount: amount,
@@ -51,6 +51,8 @@ export default function TransactionScreen() {
             router.replace("/transaction/success");
           }
         });
+      } else {
+        Alert.alert("Authentication failed", "Please try again.");
       }
     });
   }, [
